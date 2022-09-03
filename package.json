@@ -15,7 +15,7 @@
     "dev": "ts-node prebuild.ts && better-npm-run dev",
     "prod": "better-npm-run prod",
     "build:dev": "ts-node prebuild.ts && better-npm-run build:dev",
-    "build:prod": "ts-node prebuild.ts && better-npm-run build:prod",
+    "build:prod": "better-npm-run build:prod",
     "build:bundle-analyzer": "better-npm-run build:bundle-analyzer",
     "ts": "tsc --noEmit",
     "ts:watch": "tsc --noEmit --watch",
@@ -37,11 +37,12 @@
       }
     },
     "prod": {
-      "command": "webpack --progress --color --stats-error-details",
+      "command": "webpack --progress --color --stats-error-details && node dist/app.server.js",
       "env": {
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
+        "NODE_OPTIONS": "--max-old-space-size=4096",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
       }
     },
@@ -60,6 +61,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
+        "NODE_OPTIONS": "--max-old-space-size=4096",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
         "TS_NODE_TRANSPILE_ONLY": true
       }
@@ -125,7 +127,6 @@
     "nodemon": "^2.0.19",
     "nodemon-webpack-plugin": "^4.8.1",
     "prettier": "^2.7.1",
-    "run-script-webpack-plugin": "^0.1.1",
     "terser-webpack-plugin": "^5.3.5",
     "typegram": "^3.10.0",
     "webpack": "^5.74.0",
