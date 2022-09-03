@@ -30,7 +30,7 @@ const webpackConfig: Configuration = {
   output: {
     path: outPath,
     publicPath: '/',
-    filename: isProduction ? `[name].[${hashType}].js` : '[name].server.js',
+    filename: '[name].server.js',
     chunkFilename: `chunks/[name].[${hashType}].js`,
   },
   resolve: {

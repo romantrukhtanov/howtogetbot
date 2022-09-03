@@ -2,7 +2,7 @@
   "name": "how2get-bot",
   "version": "1.0.0",
   "description": "How to get? - Telegram bot",
-  "main": "index.js",
+  "main": "src/index.ts",
   "keywords": [
     "How to get?",
     "Telegram bot",
@@ -35,11 +35,11 @@
       }
     },
     "prod": {
-      "command": "webpack --progress --watch --color --stats-error-details",
+      "command": "webpack --progress --color --stats-error-details && node dist/app.server.js",
       "env": {
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
-        "WATCH_MODE": true,
+        "WATCH_MODE": false,
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
       }
     },
