@@ -8,6 +8,9 @@
     "Telegram bot",
     "Telegraf"
   ],
+  "engines": {
+    "node": ">= 16.4.2"
+  },
   "scripts": {
     "dev": "ts-node prebuild.ts && better-npm-run dev",
     "prod": "ts-node prebuild.ts && better-npm-run prod",
