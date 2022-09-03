@@ -38,13 +38,14 @@
       }
     },
     "prod": {
-      "command": "webpack --progress --color --stats-error-details && node dist/app.server.js",
+      "command": "webpack --progress --color && node dist/app.server.js",
       "env": {
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=2048",
-        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
+        "NODE_OPTIONS": "--max-old-space-size=2560",
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
+        "TS_NODE_TRANSPILE_ONLY": true
       }
     },
     "build:dev": {
@@ -62,7 +63,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=2048",
+        "NODE_OPTIONS": "--max-old-space-size=2560",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
         "TS_NODE_TRANSPILE_ONLY": true
       }
