@@ -17,6 +17,7 @@
     "build:dev": "ts-node prebuild.ts && better-npm-run build:dev",
     "build:prod": "better-npm-run build:prod",
     "build:bundle-analyzer": "better-npm-run build:bundle-analyzer",
+    "heroku-prebuild": "npm i --omit=dev --include=dev",
     "ts": "tsc --noEmit",
     "ts:watch": "tsc --noEmit --watch",
     "lint": "eslint . --ext .js,.ts --no-eslintrc --config .eslintrc.core.js",
@@ -42,7 +43,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=4096",
+        "NODE_OPTIONS": "--max-old-space-size=2048",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
       }
     },
@@ -61,7 +62,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=4096",
+        "NODE_OPTIONS": "--max-old-space-size=2048",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
         "TS_NODE_TRANSPILE_ONLY": true
       }
