@@ -1,0 +1,143 @@
+{
+  "name": "how2get-bot",
+  "version": "1.0.0",
+  "description": "How to get? - Telegram bot",
+  "main": "index.js",
+  "keywords": [
+    "How to get?",
+    "Telegram bot",
+    "Telegraf"
+  ],
+  "scripts": {
+    "dev": "ts-node prebuild.ts && better-npm-run dev",
+    "prod": "ts-node prebuild.ts && better-npm-run prod",
+    "build:dev": "ts-node prebuild.ts && better-npm-run build:dev",
+    "build:prod": "ts-node prebuild.ts && better-npm-run build:prod",
+    "build:bundle-analyzer": "better-npm-run build:bundle-analyzer",
+    "postinstall": "tsc",
+    "ts": "tsc --noEmit",
+    "ts:watch": "tsc --noEmit --watch",
+    "lint": "eslint . --ext .js,.ts --no-eslintrc --config .eslintrc.core.js",
+    "lint:fix": "eslint . --ext .js,.ts --fix --no-eslintrc --config .eslintrc.core.js",
+    "prettier": "prettier --write \"src/**/*.{ts,json}\"",
+    "prettier:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "webpack --progress --watch --color",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_FILES": true,
+        "WATCH_MODE": true,
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
+      }
+    },
+    "prod": {
+      "command": "webpack --progress --watch --color --stats-error-details",
+      "env": {
+        "NODE_ENV": "production",
+        "TS_NODE_FILES": true,
+        "WATCH_MODE": true,
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
+      }
+    },
+    "build:dev": {
+      "command": "webpack --progress --color",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_FILES": true,
+        "WATCH_MODE": false,
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}"
+      }
+    },
+    "build:prod": {
+      "command": "webpack --progress --color",
+      "env": {
+        "NODE_ENV": "production",
+        "TS_NODE_FILES": true,
+        "WATCH_MODE": false,
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
+        "TS_NODE_TRANSPILE_ONLY": true
+      }
+    },
+    "build:bundle-analyzer": {
+      "command": "webpack --progress --color",
+      "env": {
+        "NODE_ENV": "production",
+        "TS_NODE_FILES": true,
+        "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
+        "TS_NODE_TRANSPILE_ONLY": true,
+        "BUNDLE_ANALYZER": true
+      }
+    }
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1198.0",
+    "axios": "^0.27.2",
+    "axios-retry": "^3.3.1",
+    "chalk": "^4.1.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.1",
+    "dotenv-cli": "^6.0.0",
+    "husky": "^8.0.1",
+    "qs": "^6.11.0",
+    "telegraf": "^4.8.6",
+    "telegraf-session-local": "^2.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4",
+    "upath": "^2.0.1",
+    "uuid": "^8.3.2",
+    "winston": "^3.8.1"
+  },
+  "author": "How2Get_Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.18.10",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/dotenv-webpack": "^7.0.3",
+    "@types/node": "^18.0.6",
+    "@types/uuid": "^8.3.4",
+    "@types/webpack-bundle-analyzer": "^4.4.1",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "babel-loader": "^8.2.5",
+    "better-npm-run": "^0.1.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv-webpack": "^8.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-no-array-any": "^1.0.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "nodemon-webpack-plugin": "^4.8.1",
+    "prettier": "^2.7.1",
+    "terser-webpack-plugin": "^5.3.5",
+    "typegram": "^3.10.0",
+    "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix --no-eslintrc --config .eslintrc.core.js"
+    ],
+    "*.scss": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
+  }
+}

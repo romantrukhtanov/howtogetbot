@@ -1,0 +1,9 @@
+dist/*
+src/assets/*
+temp/*
+.eslintrc.js
+.eslintrc.core.js
+webpack.config.ts
+_draft/
+_gen/
+__tests__
