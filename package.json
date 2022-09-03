@@ -58,7 +58,7 @@
       }
     },
     "build:prod": {
-      "command": "webpack --progress --color",
+      "command": "webpack --progress --color --stats-error-details",
       "env": {
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,

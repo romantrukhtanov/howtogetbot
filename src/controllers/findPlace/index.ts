@@ -1,7 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 
 import { errorHandler } from 'shared/helpers/errorHandler';
-import { WizardComposer } from 'shared/components/wizardComposer';
+import { WizardComposer } from 'shared/components/WizardComposer';
 import { logger } from 'shared/helpers/logger';
 import { BotScene, CommonHears } from 'controllers/constants';
 import { Form } from 'components/Form';

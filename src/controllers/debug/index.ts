@@ -1,7 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 
 import { BotScene, CommonHears } from 'controllers/constants';
-import { WizardComposer } from 'shared/components/wizardComposer';
+import { WizardComposer } from 'shared/components/WizardComposer';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
