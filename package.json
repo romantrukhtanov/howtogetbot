@@ -35,7 +35,7 @@
       }
     },
     "prod": {
-      "command": "webpack --progress --color --stats-error-details && node dist/app.server.js",
+      "command": "webpack --progress --color --stats-error-details",
       "env": {
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
@@ -123,6 +123,7 @@
     "nodemon": "^2.0.19",
     "nodemon-webpack-plugin": "^4.8.1",
     "prettier": "^2.7.1",
+    "run-script-webpack-plugin": "^0.1.1",
     "terser-webpack-plugin": "^5.3.5",
     "typegram": "^3.10.0",
     "webpack": "^5.74.0",

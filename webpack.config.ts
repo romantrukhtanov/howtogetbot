@@ -5,6 +5,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import DoteEnvPlugin from 'dotenv-webpack';
+import { RunScriptWebpackPlugin } from "run-script-webpack-plugin";
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import { envPath } from './envConfig';
@@ -77,6 +78,7 @@ const webpackConfig: Configuration = {
     ],
   },
   plugins: [
+    isProduction && new RunScriptWebpackPlugin(),
     new DoteEnvPlugin({
       path: envPath,
       safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
@@ -85,10 +87,11 @@ const webpackConfig: Configuration = {
       silent: true, // hide any errors
       defaults: false, // load '.env.defaults' as the default values if empty.
     }),
-    new CleanWebpackPlugin({
-      protectWebpackAssets: false,
-      cleanAfterEveryBuildPatterns: ['*.js.map'],
-    }),
+    isProduction &&
+      new CleanWebpackPlugin({
+        protectWebpackAssets: false,
+        cleanAfterEveryBuildPatterns: ['*.js.map'],
+      }),
     new CopyWebpackPlugin({
       patterns: [
         {

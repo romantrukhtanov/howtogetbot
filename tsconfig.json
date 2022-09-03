@@ -24,7 +24,7 @@
     }
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "_draft"],
+  "exclude": ["node_modules", "_draft", "temp"],
   "watchOptions": {
     "watchFile": "useFsEvents",
     "watchDirectory": "useFsEvents",
