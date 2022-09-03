@@ -17,7 +17,6 @@
     "build:dev": "ts-node prebuild.ts && better-npm-run build:dev",
     "build:prod": "ts-node prebuild.ts && better-npm-run build:prod",
     "build:bundle-analyzer": "better-npm-run build:bundle-analyzer",
-    "postinstall": "tsc",
     "ts": "tsc --noEmit",
     "ts:watch": "tsc --noEmit --watch",
     "lint": "eslint . --ext .js,.ts --no-eslintrc --config .eslintrc.core.js",
