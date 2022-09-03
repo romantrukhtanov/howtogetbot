@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "ts-node prebuild.ts && better-npm-run dev",
-    "prod": "ts-node prebuild.ts && better-npm-run prod",
+    "prod": "better-npm-run prod",
     "build:dev": "ts-node prebuild.ts && better-npm-run build:dev",
     "build:prod": "ts-node prebuild.ts && better-npm-run build:prod",
     "build:bundle-analyzer": "better-npm-run build:bundle-analyzer",
