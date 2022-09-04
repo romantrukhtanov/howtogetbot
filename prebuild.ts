@@ -2,7 +2,7 @@ import { red, green } from 'chalk';
 
 import { envPath, envConfig } from './envConfig';
 
-const requiredEnvVars = ['BOT_TOKEN_PROD', 'BOT_DEV_TOKEN'];
+const requiredEnvVars = ['BOT_TOKEN_PROD', 'BOT_TOKEN_DEV'];
 const { parsed } = envConfig;
 
 if (!parsed) {

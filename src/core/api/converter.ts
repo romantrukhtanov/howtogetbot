@@ -8,7 +8,7 @@ export function convertForm(form: S.FormResponse): M.Form {
     userName: form.username,
     tgUserId: form.tg_user_id,
     title: form.title,
-    fullAddress: form.full_address,
+    addressUrl: form.address_url,
     address: form.address,
     steps,
   };

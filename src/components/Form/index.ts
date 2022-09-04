@@ -21,10 +21,10 @@ class Form {
   private readonly showStepsAction: string;
 
   public reply = () => {
-    const { title, fullAddress, id } = this.form;
+    const { title, addressUrl, id } = this.form;
 
     return this.ctx.reply(
-      `- 📜 ${title}\n\n- 📍${fullAddress}`,
+      `- 📜 ${title}\n\n- 📍${addressUrl}`,
       Markup.inlineKeyboard([
         [
           Markup.button.callback('Show form 📜', this.showStepsAction),

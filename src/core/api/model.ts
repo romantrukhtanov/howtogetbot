@@ -5,7 +5,7 @@ export interface Form {
   userName: string;
   tgUserId: number;
   title: string;
-  fullAddress: string;
+  addressUrl: string;
   address: object; // read-only
   steps: Step[];
 }

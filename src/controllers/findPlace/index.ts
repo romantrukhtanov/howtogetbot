@@ -53,7 +53,7 @@ class FindPlace {
         }
 
         await this.showForms(ctx);
-      }, 'FindPlace (text)'),
+      }, 'FindPlace (handleForms method)'),
     );
 
     stepHandler.use(
