@@ -8,6 +8,7 @@ import { Command, GracefulStopEvent } from 'core/constants';
 import { RootController } from 'core/rootController';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import { logger } from 'shared/helpers/logger';
+import { IS_PRODUCTION, WEBHOOK_PORT, WEBHOOK_URL } from 'shared/helpers/env';
 
 const session = new LocalSession();
 
@@ -80,10 +81,21 @@ class Bot {
   }
 
   private launch() {
+    const config: Telegraf.LaunchOptions = IS_PRODUCTION ? this.prodConfig : {};
+
     this.bot
-      .launch()
+      .launch(config)
       .then(() => logger.console('Bot was launched...!'))
       .catch((err: Error) => logger.console(err));
+  }
+
+  private get prodConfig(): Telegraf.LaunchOptions {
+    return {
+      webhook: {
+        domain: WEBHOOK_URL,
+        port: WEBHOOK_PORT,
+      },
+    };
   }
 
   private logger() {
