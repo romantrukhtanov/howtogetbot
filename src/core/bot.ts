@@ -8,7 +8,7 @@ import { Command, GracefulStopEvent } from 'core/constants';
 import { RootController } from 'core/rootController';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import { logger } from 'shared/helpers/logger';
-import { BOT_TOKEN, IS_PRODUCTION, WEBHOOK_PORT, WEBHOOK_URL } from 'shared/helpers/env';
+import { BOT_TOKEN, WEBHOOK_PORT, WEBHOOK_URL } from 'shared/helpers/env';
 
 const session = new LocalSession();
 
