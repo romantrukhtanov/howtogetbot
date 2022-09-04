@@ -4,7 +4,7 @@ import type { Message } from 'typegram';
 import { Form } from 'components/Form';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
-import { IS_DEV } from 'shared/helpers/env';
+import { IS_PRODUCTION } from 'shared/helpers/env';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
@@ -23,11 +23,10 @@ class Main {
   public scene;
 
   private get standaloneKeyboard() {
-    const buttons = [Markup.button.callback('🔍 Find place', Action.FIND_PLACE)];
-
-    if (IS_DEV) {
-      buttons.unshift(Markup.button.callback('📍Add place (Soon)', Action.ADD_PLACE));
-    }
+    const buttons = [
+      Markup.button.callback('🔍 Find place', Action.FIND_PLACE),
+      Markup.button.callback('📍Add place (Soon)', Action.ADD_PLACE),
+    ];
 
     return Markup.inlineKeyboard(buttons);
   }
@@ -75,9 +74,12 @@ class Main {
     this.scene.action(
       Action.ADD_PLACE,
       errorHandler(async (ctx: Scenes.WizardContext) => {
-        await ctx.answerCbQuery();
-        await ctx.reply('In progress...🙃');
-        // return ctx.scene.enter(BotScene.ADD_PLACE);
+        if (IS_PRODUCTION) {
+          await ctx.answerCbQuery();
+          await ctx.reply('In progress...🙃');
+        }
+
+        return ctx.scene.enter(BotScene.ADD_PLACE);
       }),
     );
 
