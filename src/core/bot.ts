@@ -81,10 +81,10 @@ class Bot {
   }
 
   private launch() {
-    const config: Telegraf.LaunchOptions = IS_PRODUCTION ? this.prodConfig : {};
+    // const config: Telegraf.LaunchOptions = IS_PRODUCTION ? this.prodConfig : {};
 
     this.bot
-      .launch(config)
+      .launch()
       .then(() => logger.console('Bot was launched...!'))
       .catch((err: Error) => logger.console(err));
   }
