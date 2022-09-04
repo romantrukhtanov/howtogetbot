@@ -24,8 +24,8 @@ class Main {
 
   private get standaloneKeyboard() {
     const buttons = [
-      Markup.button.callback('🔍 Find place', Action.FIND_PLACE),
       Markup.button.callback('📍Add place (Soon)', Action.ADD_PLACE),
+      Markup.button.callback('🔍 Find place', Action.FIND_PLACE),
     ];
 
     return Markup.inlineKeyboard(buttons);
@@ -77,6 +77,7 @@ class Main {
         if (IS_PRODUCTION) {
           await ctx.answerCbQuery();
           await ctx.reply('In progress...🙃');
+          return;
         }
 
         return ctx.scene.enter(BotScene.ADD_PLACE);
