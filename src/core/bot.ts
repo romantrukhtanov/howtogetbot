@@ -8,7 +8,7 @@ import { Command, GracefulStopEvent } from 'core/constants';
 import { RootController } from 'core/rootController';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import { logger } from 'shared/helpers/logger';
-import { IS_PRODUCTION, WEBHOOK_PORT, WEBHOOK_URL } from 'shared/helpers/env';
+import { BOT_TOKEN, IS_PRODUCTION, WEBHOOK_PORT, WEBHOOK_URL } from 'shared/helpers/env';
 
 const session = new LocalSession();
 
@@ -94,6 +94,7 @@ class Bot {
       webhook: {
         domain: WEBHOOK_URL,
         port: WEBHOOK_PORT,
+        hookPath: `/bot${BOT_TOKEN}`,
       },
     };
   }
