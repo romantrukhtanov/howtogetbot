@@ -1,7 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 import type { Message } from 'typegram';
 
-import { Form } from 'modules/createForm';
+import { createForm } from 'modules/createForm';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { IS_PRODUCTION } from 'shared/helpers/env';
@@ -61,8 +61,8 @@ class Main {
         return;
       }
 
-      const formItem = new Form(form, ctx, this.scene, this.api);
-      await formItem.reply();
+      const createdForm = createForm(form, ctx, this.scene, this.api);
+      await createdForm.reply();
       await ctx.deleteMessage(message.message_id);
     } catch (error) {
       logger.error(ctx, 'replyForm by start error: %O', error);
