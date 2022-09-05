@@ -4,7 +4,7 @@ import { errorHandler } from 'shared/helpers/errorHandler';
 import { WizardComposer } from 'shared/components/WizardComposer';
 import { logger } from 'shared/helpers/logger';
 import { BotScene, CommonHears } from 'controllers/constants';
-import { createForm } from 'modules/createForm';
+import { Form } from 'components/Form';
 import type * as M from 'core/api/model';
 import type { Api } from 'core/api';
 import type { Services } from 'services';
@@ -78,8 +78,8 @@ class FindPlace {
   };
 
   private replyForm = (form: M.Form, ctx: Scenes.WizardContext) => {
-    const createdForm = createForm(form, ctx, this.scene, this.api);
-    return createdForm.reply();
+    const formItem = new Form(form, ctx, this.scene, this.api);
+    return formItem.reply();
   };
 
   private async leave<T extends Scenes.WizardContext>(ctx: T) {

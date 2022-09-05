@@ -1,15 +1,14 @@
 import { Markup, Scenes } from 'telegraf';
 import type { Message } from 'typegram';
 
-import { createForm } from 'modules/createForm';
+import { Form } from 'components/Form';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { IS_PRODUCTION } from 'shared/helpers/env';
+import { logger } from 'shared/helpers/logger';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
-
-import { logger } from '../../shared/helpers/logger';
 
 const { WizardScene } = Scenes;
 
@@ -61,7 +60,7 @@ class Main {
         return;
       }
 
-      const createdForm = createForm(form, ctx, this.scene, this.api);
+      const createdForm = new Form(form, ctx, this.scene, this.api);
       await createdForm.reply();
       await ctx.deleteMessage(message.message_id);
     } catch (error) {
