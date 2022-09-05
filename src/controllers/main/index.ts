@@ -1,7 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 import type { Message } from 'typegram';
 
-import { Form } from 'components/Form';
+import { Form } from 'modules/createForm';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { IS_PRODUCTION } from 'shared/helpers/env';
