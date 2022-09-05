@@ -19,10 +19,12 @@ class FindPlace {
       this.handleForms,
     );
 
+    this.forms = [];
     this.hears();
   }
 
   public scene: Scenes.WizardScene<Scenes.WizardContext>;
+  private forms: M.Form[] | null;
 
   private enter = async (ctx: Scenes.WizardContext) => {
     await ctx.reply(
@@ -43,14 +45,14 @@ class FindPlace {
       'text',
       errorHandler(async ctx => {
         const message = ctx.message.text;
-        const forms = await this.api.findPlace(message);
+        this.forms = await this.api.findPlace(message);
 
-        if (!forms) {
+        if (!this.forms) {
           await ctx.reply("Couldn't find any places🥲\nPlease try to send another address...📝");
           return;
         }
 
-        await this.showForms(forms, ctx);
+        await this.showForms(ctx);
       }, 'FindPlace (handleForms method)'),
     );
 
@@ -63,10 +65,10 @@ class FindPlace {
     return stepHandler;
   }
 
-  private showForms = async (forms: M.Form[], ctx: Scenes.WizardContext) => {
-    if (!forms) return Promise.reject();
+  private showForms = async (ctx: Scenes.WizardContext) => {
+    if (!this.forms) return Promise.reject();
 
-    await forms.reduce(async (promise, form) => {
+    await this.forms.reduce(async (promise, form) => {
       try {
         await promise;
         await this.replyForm(form, ctx);
