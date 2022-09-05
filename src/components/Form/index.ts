@@ -1,9 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 
-import { errorHandler } from 'shared/helpers/errorHandler';
 import { TELEGRAM_BOT_LINK } from 'shared/helpers/env';
 import { Action } from 'components/Form/constants';
-import { Steps } from 'components/Steps';
 import type { Api } from 'core/api';
 import type * as M from 'core/api/model';
 
@@ -15,7 +13,6 @@ class Form {
     private api: Api,
   ) {
     this.showStepsAction = `${Action.SHOW_STEPS}_${this.form.id}`;
-    this.actions();
   }
 
   private readonly showStepsAction: string;
@@ -33,21 +30,6 @@ class Form {
       ]),
     );
   };
-
-  private actions() {
-    this.scene.action(
-      this.showStepsAction,
-      errorHandler(async ctx => {
-        const message = await ctx.reply('Connecting...🔗');
-
-        const steps = new Steps(this.form.steps, ctx, this.scene, this.api);
-
-        await steps.reply();
-
-        await ctx.deleteMessage(message.message_id);
-      }),
-    );
-  }
 }
 
 export { Form };

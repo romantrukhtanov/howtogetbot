@@ -8,14 +8,7 @@ import type { Api } from 'core/api';
 import type * as M from 'core/api/model';
 
 class Step {
-  constructor(
-    private step: M.Step,
-    private ctx: Scenes.WizardContext,
-    private scene: Scenes.WizardScene<Scenes.WizardContext>,
-    private api: Api,
-  ) {
-    this.actions();
-  }
+  constructor(private step: M.Step, private ctx: Scenes.WizardContext, private api: Api) {}
 
   private readonly deleteAction = `${Action.DELETE_STEP}_${this.step.id}`;
 
@@ -33,7 +26,7 @@ class Step {
   };
 
   private renderUrlStep = async (step: M.Step) => {
-    const message = await this.ctx.reply('Connecting...');
+    const message = await this.ctx.reply('Downloading...⌛️');
     const fileUrl = this.api.getFileLink(step.fileAttachmentId);
 
     const responseMessage = await replyURLStep(step, fileUrl, this.ctx, this.deleteButton);
@@ -49,17 +42,11 @@ class Step {
     }
 
     await this.ctx.deleteMessage(message.message_id);
+    await this.ctx.answerCbQuery();
   };
 
   private get deleteButton() {
     return Markup.inlineKeyboard([Markup.button.callback('🗑 delete message', this.deleteAction)]);
-  }
-
-  private actions() {
-    this.scene.action(this.deleteAction, async ctx => {
-      await ctx.deleteMessage();
-      await ctx.answerCbQuery();
-    });
   }
 }
 

@@ -5,6 +5,8 @@ import { WizardComposer } from 'shared/components/WizardComposer';
 import { logger } from 'shared/helpers/logger';
 import { BotScene, CommonHears } from 'controllers/constants';
 import { Form } from 'components/Form';
+import { Action } from 'components/Form/constants';
+import { Steps } from 'components/Steps';
 import type * as M from 'core/api/model';
 import type { Api } from 'core/api';
 import type { Services } from 'services';
@@ -21,10 +23,11 @@ class FindPlace {
 
     this.forms = [];
     this.hears();
+    this.actions();
   }
 
   public scene: Scenes.WizardScene<Scenes.WizardContext>;
-  private forms: M.Form[] | null;
+  private forms: M.Form[];
 
   private enter = async (ctx: Scenes.WizardContext) => {
     await ctx.reply(
@@ -45,13 +48,14 @@ class FindPlace {
       'text',
       errorHandler(async ctx => {
         const message = ctx.message.text;
-        this.forms = await this.api.findPlace(message);
+        const forms = await this.api.findPlace(message);
 
-        if (!this.forms) {
+        if (!forms) {
           await ctx.reply("Couldn't find any places🥲\nPlease try to send another address...📝");
           return;
         }
 
+        this.setForms(forms);
         await this.showForms(ctx);
       }, 'FindPlace (handleForms method)'),
     );
@@ -64,6 +68,10 @@ class FindPlace {
 
     return stepHandler;
   }
+
+  private setForms = (forms: M.Form[]) => {
+    this.forms = forms;
+  };
 
   private showForms = async (ctx: Scenes.WizardContext) => {
     if (!this.forms) return Promise.reject();
@@ -83,6 +91,33 @@ class FindPlace {
     const formItem = new Form(form, ctx, this.scene, this.api);
     return formItem.reply();
   };
+
+  private actions() {
+    this.scene.action(
+      new RegExp(`${Action.SHOW_STEPS}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.answerCbQuery();
+        if (!this.forms.length) return;
+
+        const formId = Number(ctx.match[1]);
+        const form = this.forms.find(item => item.id === formId);
+        if (!form) return;
+
+        const message = await ctx.reply('Connecting...🔗');
+        const steps = new Steps(form.steps, ctx, this.api);
+        await steps.reply();
+        await ctx.deleteMessage(message.message_id);
+      }, 'Show Steps action'),
+    );
+
+    this.scene.action(
+      new RegExp(`${Action.DELETE_STEP}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.deleteMessage();
+        await ctx.answerCbQuery();
+      }, 'Delete Step action'),
+    );
+  }
 
   private async leave<T extends Scenes.WizardContext>(ctx: T) {
     return ctx.scene.enter(BotScene.MAIN);
