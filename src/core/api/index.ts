@@ -84,7 +84,6 @@ class Api {
         `steps/${step.id}`,
         {
           step: {
-            number: step.number,
             form_id: step.formId,
             tg_media_type: step.tgMediaType as TgMediaType,
             tg_file_id: step.tgFileId as string,

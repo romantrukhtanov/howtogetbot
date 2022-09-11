@@ -31,7 +31,6 @@ export interface StepResponse {
 
 export interface StepTgMediaRequest {
   step: {
-    number: number;
     form_id: number;
     tg_media_type: TgMediaType;
     tg_file_id: string;

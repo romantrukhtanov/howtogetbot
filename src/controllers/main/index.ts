@@ -2,6 +2,8 @@ import { Markup, Scenes } from 'telegraf';
 import type { Message } from 'typegram';
 
 import { Form } from 'components/Form';
+import { Steps } from 'components/Steps';
+import { Action as FormAction } from 'components/Form/constants';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { IS_PRODUCTION } from 'shared/helpers/env';
@@ -9,6 +11,7 @@ import { logger } from 'shared/helpers/logger';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
+import type * as M from 'core/api/model';
 
 const { WizardScene } = Scenes;
 
@@ -16,10 +19,12 @@ class Main {
   constructor(private readonly services: Services, private readonly api: Api) {
     this.scene = new WizardScene(BotScene.MAIN, errorHandler(this.enter));
     this.actions();
+    this.formActions();
     this.commands();
   }
 
   public scene;
+  private form?: M.Form;
 
   private get standaloneKeyboard() {
     const buttons = [
@@ -60,6 +65,7 @@ class Main {
         return;
       }
 
+      this.form = form;
       const createdForm = new Form(form, ctx, this.scene, this.api);
       await createdForm.reply();
       await ctx.deleteMessage(message.message_id);
@@ -89,6 +95,29 @@ class Main {
         await ctx.answerCbQuery();
         return ctx.scene.enter(BotScene.FIND_PLACE);
       }),
+    );
+  }
+
+  private formActions() {
+    this.scene.action(
+      new RegExp(`${FormAction.SHOW_STEPS}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.answerCbQuery();
+        if (!this.form) return;
+
+        const message = await ctx.reply('Connecting...🔗');
+        const steps = new Steps(this.form.steps, ctx, this.api);
+        await steps.reply();
+        await ctx.deleteMessage(message.message_id);
+      }, 'Show Steps action (main scene)'),
+    );
+
+    this.scene.action(
+      new RegExp(`${FormAction.DELETE_STEP}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.deleteMessage();
+        await ctx.answerCbQuery();
+      }, 'Delete Step action (main scene)'),
     );
   }
 

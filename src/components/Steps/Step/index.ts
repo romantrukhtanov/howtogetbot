@@ -10,6 +10,8 @@ import type * as M from 'core/api/model';
 class Step {
   constructor(private step: M.Step, private ctx: Scenes.WizardContext, private api: Api) {}
 
+  private error: string | null = null;
+
   private readonly deleteAction = `${Action.DELETE_STEP}_${this.step.id}`;
 
   public reply = () => {
@@ -17,12 +19,32 @@ class Step {
     return this.renderStep();
   };
 
-  private renderStep = () => {
+  private renderStep = async () => {
     if (!hasTgStepMedia(this.step) && this.step.fileAttachmentId) {
       return this.renderUrlStep(this.step);
     }
 
-    return replyTgMediaStep(this.step, this.ctx, this.deleteButton);
+    const response = await this.tryToReplyTgMediaStep();
+
+    if (this.error && !response && this.step.fileAttachmentId) {
+      return this.renderUrlStep(this.step);
+    }
+
+    return response;
+  };
+
+  private tryToReplyTgMediaStep = async () => {
+    let response;
+
+    try {
+      response = await replyTgMediaStep(this.step, this.ctx, this.deleteButton);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.error = error.message;
+      }
+    }
+
+    return response;
   };
 
   private renderUrlStep = async (step: M.Step) => {
@@ -38,6 +60,16 @@ class Step {
         ...step,
         tgFileId: fileIdPhoto,
         tgMediaType: TgMediaType.PHOTO,
+      });
+    }
+
+    if ('video' in responseMessage) {
+      const fileIdVideo = responseMessage.video.file_id;
+
+      await this.api.updateStepTgMedia({
+        ...step,
+        tgFileId: fileIdVideo,
+        tgMediaType: TgMediaType.VIDEO,
       });
     }
 

@@ -24,8 +24,8 @@ class Form {
       `- 📜 ${title}\n\n- 📍${addressUrl}`,
       Markup.inlineKeyboard([
         [
-          Markup.button.callback('Show form 📜', this.showStepsAction),
-          Markup.button.switchToChat('Share form 🔗', `${TELEGRAM_BOT_LINK}?start=form_${id}`),
+          Markup.button.callback('Show steps 📜', this.showStepsAction),
+          Markup.button.switchToChat('Share with...🔗', `${TELEGRAM_BOT_LINK}?start=form_${id}`),
         ],
       ]),
     );
