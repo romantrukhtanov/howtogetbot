@@ -6,7 +6,7 @@ export interface Form {
   tgUserId: number;
   title: string;
   addressUrl: string;
-  address: object; // read-only
+  address: Address; // read-only
   steps: Step[];
 }
 
@@ -27,4 +27,20 @@ export interface FileAttachment {
   name: string;
   size: number;
   content: string;
+}
+
+export interface Address {
+  id: number;
+  country: string;
+  city: string;
+  street1: string;
+  street2?: null;
+  zip: number;
+  fullAddress: string;
+  formId: number;
+  shortUrl: string;
+  url: string;
+  latitude: number;
+  longitude: number;
+  shortName: null;
 }

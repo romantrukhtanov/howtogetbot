@@ -17,7 +17,7 @@ class AddPlace {
   public scene: Scenes.WizardScene<Scenes.WizardContext>;
 
   private async enter(ctx: Scenes.WizardContext) {
-    await ctx.reply('Send photo or video of the place and help people to how to get there');
+    await ctx.reply('Send photo or video of the place');
     return ctx.wizard.next();
   }
 

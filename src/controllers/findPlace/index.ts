@@ -88,7 +88,7 @@ class FindPlace {
   };
 
   private replyForm = (form: M.Form, ctx: Scenes.WizardContext) => {
-    const formItem = new Form(form, ctx, this.scene, this.api);
+    const formItem = new Form(form, ctx, this.scene, this.api, this.services);
     return formItem.reply();
   };
 

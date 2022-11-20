@@ -7,15 +7,7 @@ export interface FormResponse {
   title: string;
   address_url: string;
   steps: StepResponse[];
-  address: object;
-}
-
-export interface FileAttachmentResponse {
-  id: number;
-  step_id: number;
-  name: string;
-  size: number;
-  content: string;
+  address: AddressResponse;
 }
 
 export interface StepResponse {
@@ -27,6 +19,30 @@ export interface StepResponse {
   tg_media_type: TgMediaType;
   file_key: string;
   tg_file_id: string;
+}
+
+export interface FileAttachmentResponse {
+  id: number;
+  step_id: number;
+  name: string;
+  size: number;
+  content: string;
+}
+
+export interface AddressResponse {
+  id: 3;
+  country: string;
+  city: string;
+  street_1: string;
+  street_2?: null;
+  zip: number;
+  full_address: string;
+  form_id: number;
+  short_url: string;
+  url: string;
+  latitude: number;
+  longitude: number;
+  short_name: null;
 }
 
 export interface StepTgMediaRequest {

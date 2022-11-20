@@ -49,9 +49,9 @@ class Main {
     const text = (ctx.message as Message.TextMessage)?.text;
     const formId = text.match(/form_(.*)/)?.[1];
 
-    if (formId) {
-      return this.replyForm(Number(formId), ctx);
-    }
+    if (!formId) return;
+
+    return this.replyForm(Number(formId), ctx);
   }
 
   private replyForm = async (formId: number, ctx: Scenes.WizardContext) => {
@@ -66,7 +66,7 @@ class Main {
       }
 
       this.form = form;
-      const createdForm = new Form(form, ctx, this.scene, this.api);
+      const createdForm = new Form(form, ctx, this.scene, this.api, this.services);
       await createdForm.reply();
       await ctx.deleteMessage(message.message_id);
     } catch (error) {

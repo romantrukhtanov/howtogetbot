@@ -3,6 +3,7 @@ import { Markup, Scenes } from 'telegraf';
 import { TELEGRAM_BOT_LINK } from 'shared/helpers/env';
 import { Action } from 'components/Form/constants';
 import type { Api } from 'core/api';
+import type { Services } from 'services';
 import type * as M from 'core/api/model';
 
 class Form {
@@ -11,6 +12,7 @@ class Form {
     private ctx: Scenes.WizardContext,
     private scene: Scenes.WizardScene<Scenes.WizardContext>,
     private api: Api,
+    private services: Services,
   ) {
     this.showStepsAction = `${Action.SHOW_STEPS}_${this.form.id}`;
   }
@@ -18,16 +20,25 @@ class Form {
   private readonly showStepsAction: string;
 
   public reply = () => {
-    const { title, addressUrl, id } = this.form;
+    const { title, address, id } = this.form;
 
-    return this.ctx.reply(
-      `- 📜 ${title}\n\n- 📍${addressUrl}`,
-      Markup.inlineKeyboard([
-        [
-          Markup.button.callback('Show steps 📜', this.showStepsAction),
-          Markup.button.switchToChat('Share with...🔗', `${TELEGRAM_BOT_LINK}?start=form_${id}`),
-        ],
-      ]),
+    const { latitude, longitude, shortUrl, fullAddress } = address;
+
+    const keyboard = Markup.inlineKeyboard([
+      [
+        Markup.button.callback('Show steps 📜', this.showStepsAction),
+        Markup.button.switchToChat('Share with...🔗', `${TELEGRAM_BOT_LINK}?start=form_${id}`),
+      ],
+    ]);
+
+    return this.ctx.replyWithPhoto(
+      {
+        url: this.services.mapsApi.getPlaceUrl({ longitude, latitude }),
+      },
+      {
+        caption: `📜 ${title}\n\n🌏 ${fullAddress}\n\n📍${shortUrl}`,
+        reply_markup: keyboard.reply_markup,
+      },
     );
   };
 }

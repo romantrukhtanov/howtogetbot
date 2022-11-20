@@ -89,7 +89,7 @@ class Bot {
       .catch((err: Error) => logger.console(err));
   }
 
-  private get prodConfig(): Telegraf.LaunchOptions {
+  private get prodWebHookConfig(): Telegraf.LaunchOptions {
     return {
       webhook: {
         domain: WEBHOOK_URL,

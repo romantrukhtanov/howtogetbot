@@ -3,13 +3,15 @@ import * as M from './model';
 
 export function convertForm(form: S.FormResponse): M.Form {
   const steps = form.steps.map(convertStep);
+  const address = form.address ? convertAddress(form.address) : undefined;
+
   return {
     id: form.id,
     userName: form.username,
     tgUserId: form.tg_user_id,
     title: form.title,
     addressUrl: form.address_url,
-    address: form.address,
+    address,
     steps,
   };
 }
@@ -34,5 +36,23 @@ export function convertFileAttachment(file: S.FileAttachmentResponse): M.FileAtt
     name: file.name,
     size: file.size,
     content: file.content,
+  };
+}
+
+export function convertAddress(address: S.AddressResponse): M.Address {
+  return {
+    id: address.id,
+    country: address.country,
+    city: address.city,
+    street1: address.street_1,
+    street2: address.street_2,
+    zip: address.zip,
+    fullAddress: address.full_address,
+    formId: address.form_id,
+    shortUrl: address.short_url,
+    url: address.url,
+    latitude: address.latitude,
+    longitude: address.longitude,
+    shortName: address.short_name,
   };
 }
