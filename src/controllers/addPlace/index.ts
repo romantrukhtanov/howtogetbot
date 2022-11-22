@@ -1,5 +1,4 @@
 import { Markup, Scenes } from 'telegraf';
-import path from 'path';
 
 import { BotScene, CommonHears } from 'controllers/constants';
 import { errorHandler } from 'shared/helpers/errorHandler';
@@ -29,12 +28,14 @@ class AddPlace {
   }
 
   private enter = async (ctx: Scenes.WizardContext) => {
-    await ctx.replyWithPhoto(
-      {
-        source: path.resolve('src/assets/images/how-to-get-logo.jpg'),
-      },
-      Markup.keyboard([CommonHears.MAIN_MENU]).oneTime().resize(),
-    );
+    /*
+      await ctx.replyWithPhoto(
+        {
+          source: path.resolve('src/assets/images/how-to-get-logo.jpg'),
+        },
+        Markup.keyboard([CommonHears.MAIN_MENU]).oneTime().resize(),
+      );
+    */
 
     await ctx.reply('🙃 You can add the place in our apps:', {
       reply_markup: {
