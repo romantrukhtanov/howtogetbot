@@ -9,7 +9,7 @@
     "Telegraf"
   ],
   "engines": {
-    "node": ">= 16.4.2"
+    "node": ">= 18.12.0"
   },
   "scripts": {
     "dev": "ts-node prebuild.ts && better-npm-run dev",
