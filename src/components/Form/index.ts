@@ -24,6 +24,10 @@ class Form {
 
     const { latitude, longitude, shortUrl, fullAddress } = address;
 
+    const placeMapsViewUrl = this.services.mapsApi.getPlaceUrl({ longitude, latitude });
+
+    console.log(placeMapsViewUrl);
+
     const keyboard = Markup.inlineKeyboard([
       [
         Markup.button.callback('Show steps 📜', this.showStepsAction),
@@ -33,7 +37,7 @@ class Form {
 
     return this.ctx.replyWithPhoto(
       {
-        url: this.services.mapsApi.getPlaceUrl({ longitude, latitude }),
+        url: placeMapsViewUrl,
       },
       {
         caption: `📜 ${title}\n\n🌏 ${fullAddress}\n\n📍${shortUrl}`,

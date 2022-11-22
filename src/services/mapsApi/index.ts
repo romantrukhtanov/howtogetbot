@@ -11,7 +11,7 @@ interface Config {
 const DEFAULT_CONFIG = {
   sizes: [1024, 1024],
   markerLink: 'https://www.google.com/mapfiles/arrow.png',
-  zoom: 17,
+  zoom: 19,
 };
 
 const API_URL = 'https://maps.googleapis.com/maps/api/staticmap';
