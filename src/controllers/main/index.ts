@@ -6,7 +6,6 @@ import { Steps } from 'components/Steps';
 import { Action as FormAction } from 'components/Form/constants';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
-import { IS_PRODUCTION } from 'shared/helpers/env';
 import { logger } from 'shared/helpers/logger';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { Services } from 'services';
@@ -28,7 +27,7 @@ class Main {
 
   private get standaloneKeyboard() {
     const buttons = [
-      Markup.button.callback('📍Add place (Soon)', Action.ADD_PLACE),
+      Markup.button.callback('📍Add place', Action.ADD_PLACE),
       Markup.button.callback('🔍 Find place', Action.FIND_PLACE),
     ];
 
@@ -79,12 +78,6 @@ class Main {
     this.scene.action(
       Action.ADD_PLACE,
       errorHandler(async (ctx: Scenes.WizardContext) => {
-        if (IS_PRODUCTION) {
-          await ctx.answerCbQuery();
-          await ctx.reply('In progress...🙃');
-          return;
-        }
-
         return ctx.scene.enter(BotScene.ADD_PLACE);
       }),
     );
