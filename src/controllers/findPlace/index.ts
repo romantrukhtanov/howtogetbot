@@ -85,6 +85,8 @@ class FindPlace {
         await ctx.reply('Something went wrong...😢\nPlease try again...🔁');
       }
     }, Promise.resolve());
+
+    // await ctx.reply('You can find other place 🙃\nJust send the name of the place...');
   };
 
   private replyForm = (form: M.Form, ctx: Scenes.WizardContext) => {

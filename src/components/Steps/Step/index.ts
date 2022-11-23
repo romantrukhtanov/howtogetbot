@@ -37,7 +37,7 @@ class Step {
     let response;
 
     try {
-      response = await replyTgMediaStep(this.step, this.ctx, this.deleteButton);
+      response = await replyTgMediaStep(this.step, this.ctx);
     } catch (error) {
       if (error instanceof Error) {
         this.error = error.message;
@@ -51,7 +51,7 @@ class Step {
     const message = await this.ctx.reply('Downloading...⌛️');
     const fileUrl = this.api.getFileLink(step.fileAttachmentId);
 
-    const responseMessage = await replyURLStep(step, fileUrl, this.ctx, this.deleteButton);
+    const responseMessage = await replyURLStep(step, fileUrl, this.ctx);
 
     if ('photo' in responseMessage) {
       const fileIdPhoto = responseMessage.photo[responseMessage.photo.length - 1].file_id;

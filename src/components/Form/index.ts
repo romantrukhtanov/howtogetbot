@@ -26,8 +26,6 @@ class Form {
 
     const placeMapsViewUrl = this.services.mapsApi.getPlaceUrl({ longitude, latitude });
 
-    console.log(placeMapsViewUrl);
-
     const keyboard = Markup.inlineKeyboard([
       [
         Markup.button.callback('Show steps 📜', this.showStepsAction),
