@@ -3,14 +3,13 @@ import * as M from './model';
 
 export function convertForm(form: S.FormResponse): M.Form {
   const steps = form.steps.map(convertStep);
-  const address = form.address ? convertAddress(form.address) : undefined;
+  const address = convertAddress(form.address);
 
   return {
     id: form.id,
     userName: form.username,
     tgUserId: form.tg_user_id,
     title: form.title,
-    addressUrl: form.address_url,
     address,
     steps,
   };

@@ -5,7 +5,6 @@ export interface FormResponse {
   username: string;
   tg_user_id: number;
   title: string;
-  address_url: string;
   steps: StepResponse[];
   address: AddressResponse;
 }

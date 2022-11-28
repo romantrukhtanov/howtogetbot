@@ -1,5 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 
+import { shareForm } from 'shared/actions';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import { WizardComposer } from 'shared/components/WizardComposer';
 import { logger } from 'shared/helpers/logger';
@@ -110,6 +111,20 @@ class FindPlace {
         await steps.reply();
         await ctx.deleteMessage(message.message_id);
       }, 'Show Steps action'),
+    );
+
+    this.scene.action(
+      new RegExp(`${Action.SHARE_FORM}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.answerCbQuery();
+        if (!this.forms.length) return;
+
+        const formId = Number(ctx.match[1]);
+        const form = this.forms.find(item => item.id === formId);
+        if (!form) return;
+
+        await shareForm(ctx, form);
+      }, 'Share form action'),
     );
 
     this.scene.action(

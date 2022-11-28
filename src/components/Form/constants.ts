@@ -1,4 +1,5 @@
 export enum Action {
   SHOW_STEPS = 'SHOW_STEPS',
   DELETE_STEP = 'DELETE_STEP',
+  SHARE_FORM = 'SHARE_FORM',
 }

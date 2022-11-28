@@ -1,6 +1,5 @@
 import { Markup, Scenes } from 'telegraf';
 
-import { TELEGRAM_BOT_LINK } from 'shared/helpers/env';
 import { Action } from 'components/Form/constants';
 import type { Api } from 'core/api';
 import type { Services } from 'services';
@@ -15,12 +14,14 @@ class Form {
     private services: Services,
   ) {
     this.showStepsAction = `${Action.SHOW_STEPS}_${this.form.id}`;
+    this.shareFormAction = `${Action.SHARE_FORM}_${this.form.id}`;
   }
 
   private readonly showStepsAction: string;
+  private readonly shareFormAction: string;
 
   public reply = () => {
-    const { title, address, id } = this.form;
+    const { title, address } = this.form;
 
     const { latitude, longitude, shortUrl, fullAddress } = address;
 
@@ -29,7 +30,7 @@ class Form {
     const keyboard = Markup.inlineKeyboard([
       [
         Markup.button.callback('Show steps 📜', this.showStepsAction),
-        Markup.button.switchToChat('Share with...🔗', `${TELEGRAM_BOT_LINK}?start=form_${id}`),
+        Markup.button.callback('Get share link 🔗', this.shareFormAction),
       ],
     ]);
 

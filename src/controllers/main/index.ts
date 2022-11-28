@@ -8,6 +8,7 @@ import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { logger } from 'shared/helpers/logger';
 import { errorHandler } from 'shared/helpers/errorHandler';
+import { shareForm } from 'shared/actions';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
 import type * as M from 'core/api/model';
@@ -46,7 +47,7 @@ class Main {
     if (!ctx.message) return;
 
     const text = (ctx.message as Message.TextMessage)?.text;
-    const formId = text.match(/form_(.*)/)?.[1];
+    const formId = text.match(/form_?(.*)/)?.[1];
 
     if (!formId) return;
 
@@ -103,6 +104,16 @@ class Main {
         await steps.reply();
         await ctx.deleteMessage(message.message_id);
       }, 'Show Steps action (main scene)'),
+    );
+
+    this.scene.action(
+      new RegExp(`${FormAction.SHARE_FORM}_(.+)`),
+      errorHandler(async ctx => {
+        await ctx.answerCbQuery();
+        if (!this.form) return;
+
+        await shareForm(ctx, this.form);
+      }, 'Share form action (main scene)'),
     );
 
     this.scene.action(

@@ -4,6 +4,7 @@ import type { WizardContext } from 'telegraf/typings/scenes';
 
 import { Controllers } from 'controllers';
 import { BotScene, CommonHears } from 'controllers/constants';
+import { InlineBot } from 'core/inlineBot';
 import { Command, GracefulStopEvent } from 'core/constants';
 import { RootController } from 'core/rootController';
 import { errorHandler } from 'shared/helpers/errorHandler';
@@ -28,11 +29,16 @@ class Bot {
       ],
       { default: BotScene.MAIN },
     );
+
+    // TODO: implement inline mode
+    this.inlineBot = new InlineBot(this.bot, this.rootController);
+    // this.inlineBot.init();
   }
 
   private readonly rootController: RootController;
   private readonly controllers: Controllers;
   private readonly stage;
+  private readonly inlineBot: InlineBot;
 
   init() {
     this.middlewares();
