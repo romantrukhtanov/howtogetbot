@@ -22,7 +22,10 @@ class InlineBot {
         const forms = await this.rootController.api.findPlaces(query.trim());
 
         if (!forms) {
-          return;
+          return ctx.answerInlineQuery([], {
+            switch_pm_text: 'Nothing found, try to enter other place name.',
+            switch_pm_parameter: 'help',
+          });
         }
 
         await ctx.answerInlineQuery(forms.map(this.convertForm), {
