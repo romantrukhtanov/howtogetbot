@@ -11,11 +11,21 @@ export class WizardComposer extends Composer<Scenes.WizardContext> {
   }
 
   private baseCommands() {
-    super.command(Command.MENU, errorHandler(this.leave, 'WizardComposer (leave)'));
-    super.command(Command.START, errorHandler(this.leave, 'WizardComposer (leave)'));
+    super.command(Command.MENU, errorHandler(this.enterToMain, 'WizardComposer (enterToMain)'));
+    super.command(Command.START, errorHandler(this.enterToMain, 'WizardComposer (enterToMain)'));
+    super.command(Command.FIND, errorHandler(this.enterToFind, 'WizardComposer (enterToFind)'));
+    super.command(Command.ADD, errorHandler(this.enterToAdd, 'WizardComposer (enterToAdd)'));
   }
 
-  private async leave(ctx: Scenes.WizardContext) {
+  private async enterToMain(ctx: Scenes.WizardContext) {
     return ctx.scene.enter(BotScene.MAIN);
+  }
+
+  private async enterToFind(ctx: Scenes.WizardContext) {
+    return ctx.scene.enter(BotScene.FIND_PLACE);
+  }
+
+  private async enterToAdd(ctx: Scenes.WizardContext) {
+    return ctx.scene.enter(BotScene.ADD_PLACE);
   }
 }

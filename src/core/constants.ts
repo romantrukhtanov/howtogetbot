@@ -12,6 +12,8 @@ export enum Action {
 export enum Command {
   MENU = 'menu',
   START = 'start',
+  FIND = 'find',
+  ADD = 'add',
   DEBUG = 'debug',
 }
 

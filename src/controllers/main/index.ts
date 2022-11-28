@@ -132,6 +132,18 @@ class Main {
         await ctx.scene.enter(BotScene.DEBUG_FILES);
       }),
     );
+    this.scene.command(
+      Command.FIND,
+      errorHandler(async (ctx: Scenes.WizardContext) => {
+        await ctx.scene.enter(BotScene.FIND_PLACE);
+      }),
+    );
+    this.scene.command(
+      Command.ADD,
+      errorHandler(async (ctx: Scenes.WizardContext) => {
+        await ctx.scene.enter(BotScene.ADD_PLACE);
+      }),
+    );
   }
 }
 
