@@ -47,7 +47,7 @@ class Main {
     if (!ctx.message) return;
 
     const text = (ctx.message as Message.TextMessage)?.text;
-    const formId = text.match(/^form_?(.*)/)?.[1];
+    const formId = text.match(/form_?(.*)/)?.[1];
 
     if (!formId) return;
 

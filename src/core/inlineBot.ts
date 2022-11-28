@@ -1,11 +1,10 @@
 import { Telegraf } from 'telegraf';
 import type { InlineQueryResult } from 'typegram';
 
+import { getShareFormMessage } from 'shared/messages';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import type { RootController } from 'core/rootController';
 import type * as M from 'core/api/model';
-
-import { getShareFormMessage } from '../shared/messages';
 
 class InlineBot {
   constructor(private bot: Telegraf, private readonly rootController: RootController) {}
