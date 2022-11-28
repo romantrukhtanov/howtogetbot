@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 
-import { shareForm } from 'shared/actions';
+import { getShareFormMessage } from 'shared/messages';
 import { errorHandler } from 'shared/helpers/errorHandler';
 import { WizardComposer } from 'shared/components/WizardComposer';
 import { logger } from 'shared/helpers/logger';
@@ -49,7 +49,7 @@ class FindPlace {
       'text',
       errorHandler(async ctx => {
         const message = ctx.message.text;
-        const forms = await this.api.findPlace(message);
+        const forms = await this.api.findPlaces(message);
 
         if (!forms) {
           await ctx.reply("Couldn't find any places🥲\nPlease try to send another address...📝");
@@ -123,7 +123,7 @@ class FindPlace {
         const form = this.forms.find(item => item.id === formId);
         if (!form) return;
 
-        await shareForm(ctx, form);
+        await ctx.reply(getShareFormMessage(form));
       }, 'Share form action'),
     );
 

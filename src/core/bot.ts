@@ -30,9 +30,8 @@ class Bot {
       { default: BotScene.MAIN },
     );
 
-    // TODO: implement inline mode
     this.inlineBot = new InlineBot(this.bot, this.rootController);
-    // this.inlineBot.init();
+    this.inlineBot.init();
   }
 
   private readonly rootController: RootController;

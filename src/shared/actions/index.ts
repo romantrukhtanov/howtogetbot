@@ -3,7 +3,7 @@ import { Context } from 'telegraf';
 import { TELEGRAM_BOT_LINK } from 'shared/helpers/env';
 import type * as M from 'core/api/model';
 
-export const shareForm = async <TContext extends Context>(ctx: TContext, form: M.Form) => {
+export const replySharingForm = async <TContext extends Context>(ctx: TContext, form: M.Form) => {
   const {
     id,
     title,

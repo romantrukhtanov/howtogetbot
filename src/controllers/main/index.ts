@@ -7,8 +7,8 @@ import { Action as FormAction } from 'components/Form/constants';
 import { Action, Command } from 'core/constants';
 import { BotScene } from 'controllers/constants';
 import { logger } from 'shared/helpers/logger';
+import { getShareFormMessage } from 'shared/messages';
 import { errorHandler } from 'shared/helpers/errorHandler';
-import { shareForm } from 'shared/actions';
 import type { Services } from 'services';
 import type { Api } from 'core/api';
 import type * as M from 'core/api/model';
@@ -112,7 +112,7 @@ class Main {
         await ctx.answerCbQuery();
         if (!this.form) return;
 
-        await shareForm(ctx, this.form);
+        await ctx.reply(getShareFormMessage(this.form));
       }, 'Share form action (main scene)'),
     );
 

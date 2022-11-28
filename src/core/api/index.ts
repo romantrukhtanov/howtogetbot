@@ -8,7 +8,7 @@ import type * as M from './model';
 class Api {
   constructor(private readonly services: Services) {}
 
-  public async findPlace(message: string): Promise<M.Form[] | null> {
+  public async findPlaces(message: string): Promise<M.Form[] | null> {
     try {
       const { data } = await this.services.httpActions.get<S.FormResponse[]>(
         `search_forms?address=${message}`,
