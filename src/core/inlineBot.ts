@@ -19,7 +19,6 @@ class InlineBot {
       'inline_query',
       errorHandler(async ctx => {
         const { query } = ctx.inlineQuery;
-        console.log(query);
         const forms = await this.rootController.api.findPlaces(query.trim());
 
         if (!forms) {
