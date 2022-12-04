@@ -5,6 +5,7 @@ const BOT_TOKEN_PROD = process.env.BOT_TOKEN_PROD as string;
 const BOT_TOKEN_DEV = process.env.BOT_TOKEN_DEV as string;
 
 export const BOT_TOKEN = IS_PRODUCTION ? BOT_TOKEN_PROD : BOT_TOKEN_DEV;
+export const API_TOKEN = process.env.API_TOKEN as string;
 
 export const MAPS_API_KEY = process.env.MAPS_API_KEY as string;
 

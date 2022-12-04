@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosPromise, AxiosResponse }
 import axiosRetry from 'axios-retry';
 
 import { API_URLS } from 'shared/helpers/apiUrls';
+import { API_TOKEN } from 'shared/helpers/env';
 
 export type Options = AxiosRequestConfig;
 
@@ -12,6 +13,7 @@ class HttpActions {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
+        'Api-Token': API_TOKEN,
       },
     };
     this.request = axios.create(config);
