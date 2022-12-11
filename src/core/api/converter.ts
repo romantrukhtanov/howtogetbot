@@ -2,7 +2,7 @@ import * as S from './server';
 import * as M from './model';
 
 export function convertForm(form: S.FormResponse): M.Form {
-  const steps = form.steps.map(convertStep);
+  const steps = form?.steps?.map(convertStep) ?? [];
   const address = convertAddress(form.address);
 
   return {

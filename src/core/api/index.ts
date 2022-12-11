@@ -18,7 +18,7 @@ class Api {
         return null;
       }
 
-      return data.map(item => convertForm(item));
+      return data.filter(Boolean).map(item => convertForm(item));
     } catch (err) {
       return Promise.reject(err);
     }
@@ -27,6 +27,10 @@ class Api {
   public async getPlace(id: number): Promise<M.Form | null> {
     try {
       const { data } = await this.services.httpActions.get<S.FormResponse>(`forms/${id}`);
+
+      if (!data) {
+        return null;
+      }
 
       return convertForm(data);
     } catch (err) {
