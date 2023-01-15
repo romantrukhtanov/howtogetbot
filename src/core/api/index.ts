@@ -52,9 +52,14 @@ class Api {
 
   public async downloadFile(fileId: number) {
     try {
-      const { data } = await this.services.httpActions.get(`file_attachments/${fileId}/download`);
+      const { data } = await this.services.httpActions.get<ArrayBuffer>(
+        `file_attachments/${fileId}/download`,
+        {
+          responseType: 'arraybuffer',
+        },
+      );
 
-      return data;
+      return Buffer.from(data);
     } catch (err) {
       return Promise.reject(err);
     }

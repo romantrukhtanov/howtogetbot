@@ -50,8 +50,8 @@ const logger = {
     loggerInstance.debug(prepareMessage(ctx, msg, ...data)) as Logger,
   error: <C extends Context, T>(ctx: C, msg: string, ...data: Data<T>): Logger =>
     loggerInstance.error(prepareMessage(ctx, msg, ...data)) as Logger,
-  // eslint-disable-next-line no-console
-  console: (msg: string | Error) => (msg instanceof Error ? console.error(msg) : console.log(msg)),
+  console: (msg: unknown | string | Error) =>
+    msg instanceof Error ? console.error(msg) : console.log(msg), // eslint-disable-line no-console
 };
 
 export { logger };

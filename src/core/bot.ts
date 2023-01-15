@@ -85,13 +85,14 @@ class Bot {
     );
   }
 
-  private launch() {
+  private async launch() {
     // const config: Telegraf.LaunchOptions = IS_PRODUCTION ? this.prodConfig : {};
-
-    this.bot
-      .launch()
-      .then(() => logger.console('Bot was launched...!'))
-      .catch((err: Error) => logger.console(err));
+    try {
+      logger.console('Bot was launched...!');
+      await this.bot.launch();
+    } catch (err: unknown) {
+      logger.console(err);
+    }
   }
 
   private get prodWebHookConfig(): Telegraf.LaunchOptions {

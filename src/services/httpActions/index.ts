@@ -56,9 +56,8 @@ class HttpActions {
     return API_URLS.api;
   }
 
-  public get<T>(url: string, params?: object, options?: Options): AxiosPromise<T> {
-    const config = { params, options };
-    return this.request.get(url, config);
+  public get<T>(url: string, options?: Options): AxiosPromise<T> {
+    return this.request.get(url, options);
   }
 
   public post<T, K>(url: string, data: T, options?: Options): AxiosPromise<K> {

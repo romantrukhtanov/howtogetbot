@@ -49,9 +49,9 @@ class Step {
 
   private renderUrlStep = async (step: M.Step) => {
     const message = await this.ctx.reply('Downloading...⌛️');
-    const fileUrl = this.api.getFileLink(step.fileAttachmentId);
+    const source = await this.api.downloadFile(step.fileAttachmentId);
 
-    const responseMessage = await replyURLStep(step, fileUrl, this.ctx);
+    const responseMessage = await replyURLStep(step, source, this.ctx);
 
     if ('photo' in responseMessage) {
       const fileIdPhoto = responseMessage.photo[responseMessage.photo.length - 1].file_id;
