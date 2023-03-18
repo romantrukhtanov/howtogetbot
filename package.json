@@ -42,7 +42,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=2560",
+        "NODE_OPTIONS": "--max-old-space-size=920",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
         "TS_NODE_TRANSPILE_ONLY": true
       }
@@ -62,7 +62,7 @@
         "NODE_ENV": "production",
         "TS_NODE_FILES": true,
         "WATCH_MODE": false,
-        "NODE_OPTIONS": "--max-old-space-size=2560",
+        "NODE_OPTIONS": "--max-old-space-size=920",
         "TS_NODE_COMPILER_OPTIONS": "{\"target\": \"es6\", \"module\": \"commonjs\"}",
         "TS_NODE_TRANSPILE_ONLY": true
       }
