@@ -24,9 +24,9 @@ class Api {
     }
   }
 
-  public async getPlace(id: number): Promise<M.Form | null> {
+  public async getPlace(token: string): Promise<M.Form | null> {
     try {
-      const { data } = await this.services.httpActions.get<S.FormResponse>(`forms/${id}`);
+      const { data } = await this.services.httpActions.get<S.FormResponse>(`forms/${token}`);
 
       if (!data) {
         return null;

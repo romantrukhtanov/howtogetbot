@@ -47,18 +47,18 @@ class Main {
     if (!ctx.message) return;
 
     const text = (ctx.message as Message.TextMessage)?.text;
-    const formId = text.match(/form_?(.*)/)?.[1];
+    const token = text.match(/f_?(.*)/)?.[1];
 
-    if (!formId) return;
+    if (!token) return;
 
-    return this.replyForm(Number(formId), ctx);
+    return this.replyForm(token, ctx);
   }
 
-  private replyForm = async (formId: number, ctx: Scenes.WizardContext) => {
+  private replyForm = async (token: string, ctx: Scenes.WizardContext) => {
     try {
       const message = await ctx.reply('Connecting...🔗');
 
-      const form = await this.api.getPlace(formId);
+      const form = await this.api.getPlace(token);
 
       if (!form) {
         await ctx.deleteMessage(message.message_id);

@@ -10,6 +10,7 @@ export function convertForm(form: S.FormResponse): M.Form {
     userName: form.username,
     tgUserId: form.tg_user_id,
     title: form.title,
+    token: form.token,
     address,
     steps,
   };

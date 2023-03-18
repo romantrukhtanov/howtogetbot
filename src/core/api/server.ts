@@ -6,7 +6,8 @@ export interface FormResponse {
   tg_user_id: number;
   title: string;
   steps: StepResponse[];
-  address: AddressResponse;
+  readonly token: string;
+  readonly address: AddressResponse;
 }
 
 export interface StepResponse {
