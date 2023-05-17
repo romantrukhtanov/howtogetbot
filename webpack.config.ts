@@ -15,6 +15,7 @@ import {
   isWatchMode,
 } from './envConditions';
 
+const ENTRY_APP = 'app';
 const sourcePath = path.join(__dirname, './src');
 const outPath = path.join(__dirname, './dist');
 
@@ -25,7 +26,7 @@ const webpackConfig: Configuration = {
   context: sourcePath,
   mode: isProduction ? 'production' : 'development',
   entry: {
-    app: './index.ts',
+    [ENTRY_APP]: './index.ts',
   },
   output: {
     path: outPath,
@@ -46,6 +47,15 @@ const webpackConfig: Configuration = {
         },
       }),
     ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: chunk => chunk.name === ENTRY_APP,
+        },
+      },
+    },
   },
   target: ['node', 'es6'],
   module: {
